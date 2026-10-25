@@ -1,0 +1,42 @@
+# DigitalOcean App Platform spec: Photon geocoder (OpenStreetMap, Central America) for the trip planner.
+# Builds the photon-docker fork until rtuszik/photon-docker ships the central-america and country regions; then switch
+# `github` + `dockerfile_path` for `image: { registry_type: DOCKER_HUB, registry: rtuszik, repository: photon-docker, tag: latest }`.
+name: vancampgo-photon
+region: nyc
+services:
+  - name: photon
+    github:
+      repo: skumancer/photon-docker
+      branch: central-america-countries
+      deploy_on_push: true
+    dockerfile_path: Dockerfile
+    http_port: 2322
+    instance_size_slug: apps-s-1vcpu-1gb
+    instance_count: 1
+    envs:
+      - key: PHOTON_VERSION
+        value: "1.3.0"
+        scope: BUILD_TIME
+      - key: IMPORT_MODE
+        value: jsonl
+        scope: RUN_TIME
+      - key: REGION
+        value: panama
+        scope: RUN_TIME
+      - key: LANGUAGES
+        value: es,en
+        scope: RUN_TIME
+      # The JVM's default heap is 1/4 of the instance (~250 MB on 1 GB): the import then spends most of its time
+      # in GC and never gets ready. 600 MB peaked at ~950 MB total under a 1 GB limit locally.
+      - key: JAVA_PARAMS
+        value: "-Xms600m -Xmx600m"
+        scope: RUN_TIME
+    # Every start downloads the central-america dump and imports Panamá only (~78k documents): ~20 s on a
+    # laptop, ~2 min on this shared vCPU. Wait 2 min, then allow 5 more, before failing the deploy. A redeploy
+    # keeps the old instance serving until the new one passes.
+    health_check:
+      http_path: /status
+      initial_delay_seconds: 120
+      period_seconds: 15
+      timeout_seconds: 5
+      failure_threshold: 20
