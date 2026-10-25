@@ -19,7 +19,8 @@ def run_jsonl_import() -> None:
         raise ValueError("JSONL mode requires at least one region.")
 
     parent_region = get_jsonl_parent_region(regions)
-    country_codes = get_country_codes_for_regions(regions) if len(regions) > 1 else None
+    # filter by country unless the dump is exactly the one region asked for
+    country_codes = get_country_codes_for_regions(regions) if regions != [parent_region] else None
 
     try:
         jsonl_path = download_jsonl(parent_region)

@@ -78,6 +78,24 @@ def test_get_jsonl_url_path(region: str, expected: str):
     assert get_jsonl_url_path(region, "jsonl.zst") == expected
 
 
+@pytest.mark.parametrize(
+    ("regions", "expected"),
+    [
+        (["panama"], "central-america"),
+        (["PA", "costa-rica"], "central-america"),
+        (["central-america", "nicaragua"], "central-america"),
+        (["panama", "mexico"], "north-america"),
+        (["central-america"], "central-america"),
+    ],
+)
+def test_get_jsonl_parent_region_uses_the_parent_dump_of_countries_without_one(regions: list[str], expected: str):
+    assert get_jsonl_parent_region(regions) == expected
+
+
+def test_get_country_codes_for_central_american_countries():
+    assert get_country_codes_for_regions(["pa", "Costa-Rica"]) == ["PA", "CR"]
+
+
 def test_get_regions_for_jsonl_normalizes_aliases():
     assert get_regions_for_jsonl(["DE"]) == ["germany"]
 

@@ -234,14 +234,24 @@ NORTH_AMERICA_COUNTRY_CODES = _slice_codes("BZ", "MX")
 SOUTH_AMERICA_COUNTRY_CODES = _slice_codes("CL", "AR")
 
 
-def _region(region_type: str, continent: str | None, db_available: bool, country_codes: list[str]) -> dict:
-    return {
+def _region(
+    region_type: str,
+    continent: str | None,
+    db_available: bool,
+    country_codes: list[str],
+    jsonl_parent: str | None = None,
+) -> dict:
+    region = {
         "type": region_type,
         "continent": continent,
         "db_available": db_available,
         "jsonl_available": True,
         "country_codes": country_codes,
     }
+    # Countries without a dump of their own: import the parent region's dump, filtered by their country codes.
+    if jsonl_parent:
+        region["jsonl_parent"] = jsonl_parent
+    return region
 
 
 REGION_MAPPING = {
@@ -300,6 +310,13 @@ REGION_MAPPING = {
     "mexico": _region("sub-region", "north-america", True, ["MX"]),
     "usa": _region("sub-region", "north-america", True, ["US"]),
     "central-america": _region("sub-region", "north-america", False, ["BZ", "CR", "SV", "GT", "HN", "NI", "PA"]),
+    "belize": _region("sub-region", "north-america", False, ["BZ"], jsonl_parent="central-america"),
+    "costa-rica": _region("sub-region", "north-america", False, ["CR"], jsonl_parent="central-america"),
+    "el-salvador": _region("sub-region", "north-america", False, ["SV"], jsonl_parent="central-america"),
+    "guatemala": _region("sub-region", "north-america", False, ["GT"], jsonl_parent="central-america"),
+    "honduras": _region("sub-region", "north-america", False, ["HN"], jsonl_parent="central-america"),
+    "nicaragua": _region("sub-region", "north-america", False, ["NI"], jsonl_parent="central-america"),
+    "panama": _region("sub-region", "north-america", False, ["PA"], jsonl_parent="central-america"),
     "argentina": _region("sub-region", "south-america", True, ["AR"]),
 }
 
@@ -349,6 +366,14 @@ REGION_ALIASES = {
     "mx": "mexico",
     "us": "usa",
     "ar": "argentina",
+    "bz": "belize",
+    "cr": "costa-rica",
+    "sv": "el-salvador",
+    "gt": "guatemala",
+    "hn": "honduras",
+    "ni": "nicaragua",
+    "pa": "panama",
+    "panamá": "panama",
     "united states": "usa",
     "united states of america": "usa",
     "deutschland": "germany",
@@ -485,8 +510,10 @@ def get_jsonl_parent_region(regions: list[str]) -> str:
     normalized_regions = get_regions_for_jsonl(regions)
     if not normalized_regions:
         raise ValueError("At least one region is required")
-    if len(normalized_regions) == 1:
-        return normalized_regions[0]
+    # a country without its own dump comes from its parent's (e.g. panama → central-america)
+    sources = {REGION_MAPPING[region].get("jsonl_parent", region) for region in normalized_regions}
+    if len(sources) == 1:
+        return sources.pop()
 
     if "planet" in normalized_regions:
         return "planet"

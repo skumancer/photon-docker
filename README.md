@@ -206,6 +206,8 @@ These regions are available **only** as JSONL dumps (experimental `jsonl` mode);
 
 - **albania** (`al`), **baltics** (`ee`/`lt`/`lv`), **belarus** (`by`), **belgium** (`be`), **bosnia-herzegovina** (`ba`), **british-islands** (also: `uk`, `great britain`), **bulgaria** (`bg`), **croatia** (`hr`), **cyprus** (`cy`), **czech-republic** (`cz`, `czechia`), **finland** (`fi`), **georgia** (`ge`), **greece** (`gr`), **hungary** (`hu`), **iceland-faroe** (`is`), **ireland** (`ie`), **italy** (`it`), **kosovo** (`xk`), **macedonia** (`mk`), **malta** (`mt`), **moldova** (`md`), **montenegro** (`me`), **norway** (`no`), **poland** (`pl`), **portugal** (`pt`), **romania** (`ro`), **serbia** (`rs`), **slovenia** (`si`), **sweden** (`se`), **switzerland-liechtenstein** (`ch`), **turkey** (`tr`), **ukraine** (`ua`), **central-america** (Belize, Costa Rica, El Salvador, Guatemala, Honduras, Nicaragua, Panama)
 
+Each Central American country can also be imported alone: **belize** (`bz`), **costa-rica** (`cr`), **el-salvador** (`sv`), **guatemala** (`gt`), **honduras** (`hn`), **nicaragua** (`ni`), **panama** (`pa`). They have no dump of their own, so the central-america dump is downloaded and filtered by country code.
+
 ### Usage Examples
 
 ```yaml
