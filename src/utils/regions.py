@@ -299,6 +299,7 @@ REGION_MAPPING = {
     "canada": _region("sub-region", "north-america", True, ["CA"]),
     "mexico": _region("sub-region", "north-america", True, ["MX"]),
     "usa": _region("sub-region", "north-america", True, ["US"]),
+    "central-america": _region("sub-region", "north-america", False, ["BZ", "CR", "SV", "GT", "HN", "NI", "PA"]),
     "argentina": _region("sub-region", "south-america", True, ["AR"]),
 }
 

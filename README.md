@@ -202,9 +202,9 @@ Only **16 regions** have a prebuilt **DB** index. They are also available as JSO
 
 ### 4. JSONL-only Individual Regions (Experimental)
 
-These regions are available **only** as JSONL dumps (experimental `jsonl` mode); they have no prebuilt DB index. All are sub-regions of Europe. Two-letter country-code aliases work where defined (e.g. `pl`, `se`, `ch`).
+These regions are available **only** as JSONL dumps (experimental `jsonl` mode); they have no prebuilt DB index. All but **central-america** are sub-regions of Europe. Two-letter country-code aliases work where defined (e.g. `pl`, `se`, `ch`).
 
-- **albania** (`al`), **baltics** (`ee`/`lt`/`lv`), **belarus** (`by`), **belgium** (`be`), **bosnia-herzegovina** (`ba`), **british-islands** (also: `uk`, `great britain`), **bulgaria** (`bg`), **croatia** (`hr`), **cyprus** (`cy`), **czech-republic** (`cz`, `czechia`), **finland** (`fi`), **georgia** (`ge`), **greece** (`gr`), **hungary** (`hu`), **iceland-faroe** (`is`), **ireland** (`ie`), **italy** (`it`), **kosovo** (`xk`), **macedonia** (`mk`), **malta** (`mt`), **moldova** (`md`), **montenegro** (`me`), **norway** (`no`), **poland** (`pl`), **portugal** (`pt`), **romania** (`ro`), **serbia** (`rs`), **slovenia** (`si`), **sweden** (`se`), **switzerland-liechtenstein** (`ch`), **turkey** (`tr`), **ukraine** (`ua`)
+- **albania** (`al`), **baltics** (`ee`/`lt`/`lv`), **belarus** (`by`), **belgium** (`be`), **bosnia-herzegovina** (`ba`), **british-islands** (also: `uk`, `great britain`), **bulgaria** (`bg`), **croatia** (`hr`), **cyprus** (`cy`), **czech-republic** (`cz`, `czechia`), **finland** (`fi`), **georgia** (`ge`), **greece** (`gr`), **hungary** (`hu`), **iceland-faroe** (`is`), **ireland** (`ie`), **italy** (`it`), **kosovo** (`xk`), **macedonia** (`mk`), **malta** (`mt`), **moldova** (`md`), **montenegro** (`me`), **norway** (`no`), **poland** (`pl`), **portugal** (`pt`), **romania** (`ro`), **serbia** (`rs`), **slovenia** (`si`), **sweden** (`se`), **switzerland-liechtenstein** (`ch`), **turkey** (`tr`), **ukraine** (`ua`), **central-america** (Belize, Costa Rica, El Salvador, Guatemala, Honduras, Nicaragua, Panama)
 
 ### Usage Examples
 

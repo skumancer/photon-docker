@@ -71,6 +71,7 @@ def test_get_index_url_path_raises_for_unknown_region():
         ("planet", "/photon-dump-planet-master-latest.jsonl.zst"),
         ("europe", "/europe/photon-dump-europe-master-latest.jsonl.zst"),
         ("us", "/north-america/usa/photon-dump-usa-master-latest.jsonl.zst"),
+        ("central-america", "/north-america/central-america/photon-dump-central-america-master-latest.jsonl.zst"),
     ],
 )
 def test_get_jsonl_url_path(region: str, expected: str):
